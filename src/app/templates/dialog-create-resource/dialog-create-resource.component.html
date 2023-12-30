@@ -1,0 +1,42 @@
+<h2 class='page-title'>Create Post Data</h2>
+<div class="page-container">
+  <form #userForm="ngForm" (ngSubmit)="formSubmit(userForm)" novalidate>
+
+    <div class="form-control">
+      <label for="nameField">Title</label>
+      <input type="text" name="userTitleInfo" id="titleField" [(ngModel)] = "createPost.title"
+      #userTitleRef="ngModel" minlength="3" required [class.red]="(userTitleRef.touched && userTitleRef.invalid)">
+
+       <div *ngIf="userTitleRef.touched && userTitleRef.errors">
+        <p *ngIf="userTitleRef.errors && userTitleRef.errors['required']" class="redText">This field is required</p>
+        <p *ngIf="userTitleRef.errors && userTitleRef.errors['minlength']" class="redText">Minimum 3 characters required</p>
+      </div>
+    </div>
+
+    <div class="form-control">
+      <label for="bodyField">Body</label>
+      <input type="text" name="userBodyInfo" id="bodyField" [(ngModel)] = "createPost.body"
+      #userBodyRef="ngModel" minlength="8" required [class.red]="(userBodyRef.touched && userBodyRef.invalid)">
+
+       <div *ngIf="userBodyRef.touched && userBodyRef.errors">
+        <p *ngIf="userBodyRef.errors && userBodyRef.errors['required']" class="redText">This field is required</p>
+        <p *ngIf="userBodyRef.errors && userBodyRef.errors['minlength']" class="redText">Minimum 8 characters required</p>
+      </div>
+    </div>
+
+    <div class="form-control">
+      <label for="userIdField">userID</label>
+      <input type="number" name="userIdInfo" id="userIdField" [(ngModel)] = "createPost.userId"
+      #userIDRef="ngModel" maxlength="2" required [class.red]="(userIDRef.touched && userIDRef.invalid)">
+
+       <div *ngIf="userIDRef.touched && userIDRef.errors">
+        <p *ngIf="userIDRef.errors && userIDRef.errors['required']" class="redText">This field is required</p>
+        <p *ngIf="userIDRef.errors && userIDRef.errors['maxlength']" class="redText">Maximum 2 digits allowed</p>
+      </div>
+    </div>
+
+    <div class="form-control">
+      <button mat-raised-button color="primary" type="submit" [disabled]="userForm.invalid">Submit Data</button>
+    </div>
+</form>
+</div>

@@ -1,0 +1,41 @@
+<button type="submit" (click)="child2ParentMethod()" style="margin:10px;">Child to Parent Data</button>
+<mat-accordion>
+  <mat-expansion-panel [expanded]="true" hideToggle>
+
+    <mat-expansion-panel-header class='accordion-header'>
+      <mat-panel-title>
+        {{templateName}}
+        <span class="material-icons">
+          keyboard_arrow_down
+          </span>
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+
+    <div class='accordion-content flex-container'>
+      <mat-card *ngFor="let item of quartelyTemplateList" class="template-info">
+        <div class="item-wrapper">
+          <label class="keyname">Username-</label>
+          {{item.user}}
+       </div>
+       <div class="item-wrapper">
+        <label class="keyname">Month & Year-</label>
+        {{item.month | monthName}} {{item.year}}
+       </div>
+       <div class="item-wrapper">
+        <label class="keyname">Status-</label>
+        <span class="circle-icon" [ngStyle]="{'background-color':checkStatus(item.status)}"></span>
+        {{item.status}}
+       </div>
+       <div class="item-wrapper">
+        <label class="keyname">Date & Time-</label>
+        {{dateConvert(item.lastActionDate)}}
+       </div>
+       <div class="item-wrapper">
+        <label class="keyname">Comments-</label>
+       {{item.comments}}
+       </div>
+      </mat-card>
+    </div>
+
+  </mat-expansion-panel>
+</mat-accordion>

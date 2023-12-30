@@ -1,0 +1,36 @@
+.form-control {
+    display:block;
+    padding-top:20px;
+    height:auto;
+    margin-bottom:10px;
+  }
+  .form-block {
+    display:block;
+    padding-top:5px;
+  }
+  label {
+      float: left;
+      width: 56px;
+  }
+  input[type="text"], input[type="number"]  {
+    width:200px;
+    height:20px;
+    padding:2px;
+    margin-left:20px;
+  }
+  .red {
+    border:solid 1px red;
+  }
+  .redText {
+    color:red;
+    font-size:11px;
+    margin-left: 75px;
+  }
+  .message {
+    color:green;
+    font-size:25px;
+  }
+  button {
+    margin-left:75px;
+  }
+  

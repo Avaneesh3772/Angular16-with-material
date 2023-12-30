@@ -1,0 +1,177 @@
+<h2 class='page-title'>LE Calculation</h2>
+<h3 class="page-subtitle">Employee Information - Reactive Form</h3>
+<div class="page-container">
+  <form [formGroup]="employeeForm" (ngSubmit) = "onSubmit()">
+    <fieldset>
+     <legend>User Information:</legend>
+    <div class="form-container" [class.error]="EmpName.touched && EmpName.errors">
+        <label for="name" class="labelName">Name: </label>
+        <input type="text" id="name" formControlName="userName">
+        <label class="smallFont"> {{charLength}} characters entered</label>
+        <div *ngIf="EmpName.touched && EmpName.errors" class="error-messages">
+            <p *ngIf="EmpName.errors && EmpName.errors['required']">This is a required field.</p>
+            <p *ngIf="EmpName.errors && EmpName.errors['minlength']">Minimum 3 characters</p>
+            <p *ngIf="EmpName.errors && EmpName.errors['maxlength']">Maximum 8 characters</p>
+            <p *ngIf="EmpName.errors && EmpName.errors['forbiddenName']">{{EmpName.errors['forbiddenName']}} Username not allowed</p>
+        </div>
+    </div>
+    <div class="form-container" [class.error]="EmpAge.touched && EmpAge.errors">
+        <label for="Age" class="labelName">Your Age: </label>
+        <input type="number" id="age" formControlName="userAge">
+        <div *ngIf="EmpAge.touched && EmpAge.errors" class="error-messages">
+            <p *ngIf="EmpAge.errors && EmpAge.errors['required']">This is a required field.</p>           
+            <p *ngIf="EmpAge.errors && EmpAge.errors['ageMismatch']">Age should be between 18 and 45.</p>
+        </div>
+    </div>
+    <div class="form-container" [class.error]="EmpPassword.touched && EmpPassword.errors">
+      <label for="password"  class="labelName">Password: </label>
+      <input type="password" id="password" formControlName="password">
+
+      <div *ngIf="EmpPassword.touched && EmpPassword.errors" class="error-messages">
+        <p *ngIf="EmpPassword.errors['required']">This is a required field.</p>
+      </div>
+   </div>
+
+   <div class="form-container"  [class.error]="EmpConfirmPassword.touched && EmpConfirmPassword.errors">
+    <label for="confirmPassword"  class="labelName">Confirm Password: </label>
+    <input type="password" id="confirmPassword" formControlName="confirmPassword">
+
+    <div *ngIf="EmpConfirmPassword.touched && EmpConfirmPassword.errors" class="error-messages">
+      <p *ngIf="EmpConfirmPassword.errors['required']">This is a required field.</p>
+    </div>
+    <div *ngIf="employeeForm.errors && employeeForm.errors['misMatch']" class="error-messages">
+     <p>Password and confirm password should match</p>
+     </div>
+   </div>
+
+   <div class="form-container" [class.error]="EmpJoiningDate.touched && EmpJoiningDate.errors">
+    <label for="confirmPassword"  class="labelName">Joining Date: </label>
+    <mat-form-field appearance="fill">
+      <input matInput [matDatepicker]="myDatePicker"
+      [min]="mindate" [max]="maxdate" formControlName="joiningDate">
+
+      <mat-datepicker-toggle matSuffix [for]="myDatePicker"></mat-datepicker-toggle>
+
+      <mat-datepicker #myDatePicker></mat-datepicker>
+    </mat-form-field>
+    <div *ngIf="EmpJoiningDate.touched && EmpJoiningDate.errors" class="error-messages">
+      <p *ngIf="EmpJoiningDate.errors['required']">This is a required field.</p>
+    </div>
+   </div>
+  </fieldset>
+  
+  <fieldset>
+    <div class="form-control">
+      <label>Please choose Account</label>
+      <div class="form-block radio-buttons"  *ngFor="let item of chooseAccountOrPortfolio; let i =index;">
+          <input id="timePreference{{i}}" type="radio" formControlName="chooseAccoOrPort" 
+          value="{{item}}" required>
+          <label for="timePreference{{i}}">{{item}}</label>
+      </div>
+    </div>
+  </fieldset>
+
+   <fieldset>
+    <legend>Choose Promotional Offers:</legend>
+    <div class="form-container">
+      <input type="checkbox" formControlName="promotionalOffer" id="promotionalOffer">
+      <label for="promotionalOffer">Send me promotional offers: </label>
+    </div>
+    <div class="form-container" [class.error]="EmpEmail.touched && EmpEmail.errors">
+          <label for="email"  class="labelName">Email: </label>
+          <input type="email" id="email"  formControlName="userEmail">
+
+          <div *ngIf="EmpEmail.touched && EmpEmail.errors" class="error-messages">
+            <p *ngIf="EmpEmail.errors && EmpEmail.errors['required']">This is a required field.</p>
+            <p *ngIf="EmpEmail.errors && EmpEmail.errors['email']">This is not valid email.</p>
+            <p *ngIf="EmpEmail.errors && EmpEmail.errors['pattern']">This is not valid pattern.</p>
+          </div>
+      </div>
+   </fieldset>
+    <fieldset formGroupName="skills">
+            <legend>Choose Your Skill:</legend>
+            <div class="form-container" [class.error]="EmpSkills.touched && EmpSkills.errors">
+                <label for="skills"  class="labelName">Skills: </label>
+                <input type="text" id="skills" formControlName="userSkills">
+
+                <div *ngIf="EmpSkills.touched && EmpSkills.errors"  class="error-messages">
+                  <p *ngIf="EmpSkills.errors && EmpSkills.errors['required']">This is a required field.</p>
+                </div>
+            </div>
+            <div class="form-container"  [class.error]="EmpExperience.touched && EmpExperience.errors">
+                <label for="experience"  class="labelName">Experience in Years: </label>
+                <input type="text" id="experience" formControlName="userExperience">
+                <div *ngIf="EmpExperience.touched && EmpExperience.errors" class="error-messages">
+                  <p *ngIf="EmpExperience.errors && EmpExperience.errors['required']">This is a required field.</p>
+                  <p *ngIf="EmpExperience.errors && EmpExperience.errors['pattern']">Please enter only numbers.</p>
+                </div>
+            </div>
+            <div class="form-container"  [class.error]="EmpProficiency.touched && EmpProficiency.errors">
+                <label for="Proficiency"  class="labelName">Proficiency: </label>
+                <select id="Proficiency" formControlName="userProficiency" (change)="updateProficiency($event)">
+                    <option value="" selected>Choose your proficiency</option>
+                    <option *ngFor="let proficiency of proficiencyList" [ngValue]="proficiency">{{proficiency}}</option>
+                </select>
+
+                <div *ngIf="EmpProficiency.touched && EmpProficiency.errors" class="error-messages">
+                  <p *ngIf="EmpProficiency.errors['required']">This is a required field.</p>
+                </div>
+            </div>
+    </fieldset>
+    <fieldset>
+      <legend>Add your qualification:</legend>
+        <div formArrayName="qualification">
+          <div *ngFor="let item of Qualification.controls; let i =index" class="form-flex-container">
+              <ng-container [formGroupName]="i">
+                  <div class="flex-items">
+                    <label for="Qualification"  class="labelName">Qualification: </label>
+                    <input type="text" id="qualification" formControlName="userQualification">
+                    <div *ngIf="Qualification.controls[i].get('userQualification')?.touched &&
+                    Qualification.controls[i].get('userQualification')?.errors" class="error-messages">
+                    <p *ngIf="Qualification.controls[i].get('userQualification')?.errors?.['required']">
+                      This is a required field.
+                    </p>
+                    <p *ngIf="Qualification.controls[i].get('userQualification')?.errors?.['minlength']">
+                      Minimum 3 characters.
+                    </p>
+                    </div>
+                  </div>
+
+                  <div class="flex-items">
+                    <label for="university"  class="labelName">Institite/University: </label>
+                    <input type="text" id="university" formControlName="userUniversity">
+                    <div *ngIf="Qualification.controls[i].get('userUniversity')?.touched &&
+                    Qualification.controls[i].get('userUniversity')?.errors" class="error-messages">
+                    <p *ngIf="Qualification.controls[i].get('userUniversity')?.errors?.['required']">
+                      This is a required field.
+                    </p>
+                    <p *ngIf="Qualification.controls[i].get('userUniversity')?.errors?.['minlength']">
+                      Minimum 5 characters.
+                    </p>
+                    </div>
+                  </div>
+                  <div class="flex-items delete-button"  *ngIf="Qualification.controls.length > 1">
+                    <button type="button" name="deleteRow" id="deleteRow" mat-button color="warn" (click)="deleteQualification(i)">
+                      Delete This Qualification
+                    </button>
+                  </div>
+            </ng-container>
+          </div>
+      </div>
+    </fieldset>
+    <div class="common-message" *ngIf="Qualification.controls.length >= 3">
+      You can add maximum 3 qualifications.
+    </div>
+    <div class="add-button">
+      <button type="button" name="addAnotherRow" id="addAnotherRow" mat-stroked-button color="primary"
+      (click)="addNewQualification()" [disabled]="Qualification.controls.length >= 3">
+        Add Another Qualification
+      </button>
+    </div>
+    <div class="button-row">
+        <button mat-raised-button [disabled]="employeeForm.invalid" color="primary"
+        type="submit" id="submit" name="submitButton">Submit Form Data</button>
+    </div>
+</form>
+</div>
+

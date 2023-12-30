@@ -1,0 +1,20 @@
+<h2 class='page-title'>Restated Report</h2>
+<div class="page-container">
+  <mat-tab-group>
+    <mat-tab label="First Tab">
+      <div class="tab-content">Content 1 </div>
+    </mat-tab>
+    <mat-tab label="Second Tab">
+      <div class="tab-content">Content 2 </div>
+    </mat-tab>
+    <mat-tab label="Third Tab">
+      <div class="tab-content">Content 3 </div>
+    </mat-tab>
+  </mat-tab-group>
+</div>
+<div class="getTotal">
+  <button mat-raised-button color="primary" (click)="getTotalAge()" type="button" id="getTotal" name="getTotal">
+    Get Total Age
+  </button>
+</div>
+<h2 *ngIf="showAge">{{ageTotal}}</h2>

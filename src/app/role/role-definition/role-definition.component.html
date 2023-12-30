@@ -1,0 +1,18 @@
+<h2 class='page-title'>Role Definition</h2>
+<h6 *ngIf="displayChild2ParentData">
+    Name - {{displayChild2ParentData.name}} <br>
+    Age - {{displayChild2ParentData.city}}
+</h6>
+<div class="page-container">
+    <app-quarterly *ngIf="quartelyTemplateListLength && quartelyTemplateListLength > 0" 
+        [quartelyTemplateList] = "quartelyTemplateList" 
+        (child2ParentDataTransfer)="printChild2ParentData($event)">
+    </app-quarterly>
+</div>
+<div class="page-container">
+    <app-monthly *ngIf="monthlyTemplateListLength && monthlyTemplateListLength > 0" 
+        [monthlyTemplateList] = "monthlyTemplateList">
+    </app-monthly>
+</div>
+
+

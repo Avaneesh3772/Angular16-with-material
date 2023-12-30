@@ -1,0 +1,77 @@
+<h2 class='page-title'>Close Quarter</h2>
+<h3 class="page-subtitle">Template Driven Form</h3>
+<div class="page-container">
+  <form #userForm="ngForm" (ngSubmit)="formSubmit()" novalidate *ngIf="!formSubmitted">
+
+    <div class="form-control">
+      <label for="nameField">Name</label>
+      <input type="text" name="userNameInfo" id="nameField" [(ngModel)] = "userDetails.userName"
+      #userNameRef="ngModel" minlength="8" required [class.red]="(userNameRef.touched && userNameRef.invalid)">
+
+       <div *ngIf="userNameRef.touched && userNameRef.errors">
+        <p *ngIf="userNameRef.errors['required']" class="redText">This field is required</p>
+        <p *ngIf="userNameRef.errors['minlength']" class="redText">Minimum 8 characters required </p>
+      </div>
+    </div>
+
+    <div class="form-control">
+      <label for="emailField">Email</label>
+      <input type="email" name="userEmailInfo" id="emailField" [(ngModel)] = "userDetails.userEmail"
+      #userEmailRef="ngModel" required [class.red]="(userEmailRef.touched && userEmailRef.invalid)">
+      <div *ngIf="userEmailRef.touched && userEmailRef.errors">
+          <p *ngIf="userEmailRef.errors['required']" class="redText">This field is required</p>
+          <p *ngIf="userEmailRef.errors['email']" class="redText">Please enter valid email</p>
+      </div>
+    </div>
+
+    <div class="form-control">
+      <label for="phoneField">Phone</label>
+      <input type="number" name="userPhoneInfo" id="phoneField" [(ngModel)] = "userDetails.userPhone"
+      #userPhoneRef="ngModel" required pattern="^\d{10}$" [class.red]="(userPhoneRef.touched && userPhoneRef.invalid)">
+      <div *ngIf="userPhoneRef.touched && userPhoneRef.errors">
+          <p *ngIf="userPhoneRef.errors['required']" class="redText">This field is required</p>
+          <p *ngIf="userPhoneRef.errors['pattern']" class="redText">Please enter 10 digits</p>
+      </div>
+    </div>
+
+   <div class="form-control">
+      <label for="topicField">Topic</label>
+      <select name="userTopicInfo" id="topicField" [(ngModel)] = "userDetails.userTopic" (ngModelChange)="updateTopic($event)"
+      #userTopicRef="ngModel" required>
+          <option value="" selected>Please select a value</option>
+          <option *ngFor="let topic of topics" value="{{topic}}">
+              {{topic}}
+          </option>
+      </select>
+      <div *ngIf="userTopicRef.touched && userTopicRef.errors ">
+          <p *ngIf="userTopicRef.errors['required']" class="redText">This field is required</p>
+      </div>
+   </div>
+
+   <div class="form-control">
+      <label>Please choose Time</label>
+      <div class="form-block radio-buttons"  *ngFor="let time of timePreferences; let i =index;">
+          <input id="timePreference{{i}}" type="radio" name="userTimePreferenceInfo" [(ngModel)] = "userDetails.userTimePreference"
+          (ngModelChange)="updateTimePreference(time)" #userTimePreferenceRef="ngModel" value="{{time}}" required>
+          <label for="timePreference{{i}}">{{time}}</label>
+      </div>
+    </div>
+
+    <div class="form-control">
+      <input type="checkbox"  id="userSubscription" name="userSubscriptionInfo" [(ngModel)]="userDetails.userSubscription"
+      #userSubscriptionRef="ngModel" (ngModelChange)="getFormStatus($event)">
+      <label for="userSubscription">Send me promotional offers</label>
+    </div>
+
+    <div class="form-control">
+      <button mat-raised-button color="primary" type="submit" [disabled]="userForm.invalid">Submit</button>
+    </div>
+
+  </form>
+  <div *ngIf="formSubmitted">
+    <p class="message">Your Form has been submitted successfully.</p>
+    <br>
+
+  </div>
+</div>
+

@@ -1,0 +1,47 @@
+<div class="dialog-box-container">
+    <div class="close-dialog-box top-position">
+      <button mat-button color="primary" (click)="closeDialog()">Close</button>
+    </div>
+    <h2 class='page-title'>Comments API</h2>
+    <h3>You clicked on Post ID number {{rowData.id}}</h3>
+    <div class="page-container">
+  
+      <ng-container *ngIf="userDataLoaded; else elseBlock">
+        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 app-table">
+  
+          <!-- ID Column -->
+          <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef> ID </th>
+            <td mat-cell *matCellDef="let element" width='10%'> {{element.id}} </td>
+          </ng-container>
+  
+          <!-- Title Column -->
+          <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef> Name </th>
+            <td mat-cell *matCellDef="let element" width='20%'> {{element.name}} </td>
+          </ng-container>
+  
+          <!-- userId Column -->
+          <ng-container matColumnDef="email">
+            <th mat-header-cell *matHeaderCellDef > Email </th>
+            <td mat-cell *matCellDef="let element" width='20%'> {{element.email}} </td>
+          </ng-container>
+  
+          <!-- Body Column -->
+          <ng-container matColumnDef="message">
+            <th mat-header-cell *matHeaderCellDef> Message </th>
+            <td mat-cell *matCellDef="let element" width='50%'> {{element.body}} </td>
+          </ng-container>
+  
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"  class="app-table-row"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="app-table-row"></tr>
+        </table>
+      </ng-container>
+      <ng-template #elseBlock>
+        <div class="loading-icon-position">
+            Loading....<div class="loader"></div>
+        </div>
+      </ng-template>
+    </div>
+  </div>
+  
