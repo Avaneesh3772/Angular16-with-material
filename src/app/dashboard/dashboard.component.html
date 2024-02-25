@@ -42,5 +42,16 @@
     </div>
   </ng-template>
 </div>
-
+<form #userForm="ngForm" novalidate>
+  <div class="form-control">
+    <label for="topicField">Topic</label>
+    <select name="userTopicInfo" id="topicField" [(ngModel)] = "userTopic" (ngModelChange)="updateTopic($event)"
+    #userTopicRef="ngModel" required>
+        <option value="" selected>Please select a value</option>
+        <option *ngFor="let topic of dropDOwnData$ | async" value="{{topic.email}}">
+            {{topic.email}}
+        </option>
+    </select>  
+  </div>
+</form>
 

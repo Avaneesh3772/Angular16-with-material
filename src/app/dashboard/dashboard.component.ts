@@ -1,10 +1,12 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { DashboardConstants } from './dashboard.constants';
 import { UserList } from './dashboard.models';
 import { DashboardService } from './dashboard.service';
 import { DialogUserinfoComponent } from './dialog-userinfo/dialog-userinfo.component';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-dashboard',
@@ -17,16 +19,25 @@ export class DashboardComponent implements OnInit {
   public displayedColumns: string[] = DashboardConstants.displayedColumns;
   public errorMessage: string = '';
   public userDataLoaded = false;
+  @ViewChild('userForm', {static: false}) userForm: NgForm | undefined;
+  public dropDOwnData$!: Observable<any[]>;
+  public userTopic: string = '';
 
   constructor(
     private dashboardService: DashboardService,
     private dialog: MatDialog,
   ) {
-    this.showUserTable();
+    this.showUserTable();    
+
   }
 
   ngOnInit(): void {
+    this.dropDOwnData$ = this.dashboardService.getDropdownList('https://jsonplaceholder.typicode.com/posts/1/comments');
+    console.log('this.dropDOwnData$', this.dropDOwnData$);
+  }
 
+  updateTopic(value: string) {
+    console.log('topic select box value- ', value);   
   }
 
   showUserTable() {

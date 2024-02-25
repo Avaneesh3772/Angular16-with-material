@@ -14,4 +14,8 @@ export class DashboardService extends WebApiService{
     return this.baseHttpGetRequest(apiURL, httpParams)
   }
 
+  getDropdownList(apiURL:string, httpParams?: HttpParams): Observable<any[]> {
+    return this.baseHttpGetRequest(apiURL, httpParams)
+  }
+
 }
