@@ -1,5 +1,8 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { RestatementConstants } from '../restatement.constants';
+import { FormControl, Validators } from '@angular/forms';
+import { Observable } from 'rxjs';
+import { debounceTime, distinctUntilChanged, filter, switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-restated-reports',
@@ -8,21 +11,30 @@ import { RestatementConstants } from '../restatement.constants';
 })
 export class RestatedReportsComponent implements OnInit {
 
-  public ageTotal: number = 0;
-  public showAge : boolean = false;
-  public employeeInfo: any[] = RestatementConstants.employeeInfo;
-
-  constructor() { }
-
+  searchTerm: FormControl = new FormControl('', [Validators.required, Validators.minLength(3)])
+  
+  constructor(private http: HttpClient) { }
   ngOnInit(): void {
-    this.employeeInfo.forEach((item) => {
-      this.ageTotal+=  item.age;
-    })
+    this.searchTerm.valueChanges
+      .pipe(
+        filter(() => this.searchTerm.valid),
+        debounceTime(200),
+        distinctUntilChanged(),
+        switchMap((text) => {
+          return this.fetchResult({ q: text })
+        })
+      )
+      .subscribe(data => {
+        console.log('Subscribe data', data)
+      })
   }
-
-  getTotalAge() {
-    this.showAge = true;
-    return this.ageTotal;
+  fetchResult(queryParams?: any): Observable<any> {
+    const options = {
+      ...(queryParams && { params: queryParams })
+    }
+    console.log('options', options)
+    
+    return this.http.get('https://api.storerestapi.com/products', options)
   }
 
 }
